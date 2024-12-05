@@ -1,4 +1,4 @@
-# Modified PLTW Unit 2: Sell My Pet Project
+# PLTW Unit 2: Sell My Pet JSoup Project
 
 In this project, you will work in teams of 2 to complete a modified version of the [PLTW Unit 2, *Sell My Pet Food* problem](https://pltw.read.inkling.com/a/b/7db822ffb753422ca6c1b9126e7d8100/p/26c4dea4694a4818b0b6b1a44aa2774e). Please refer to the **[Unit 2 Sell My Pet jsoup - Teams Sheet](https://docs.google.com/spreadsheets/d/1Ti-NQO2pySe0ZWMq6LJbzdDS0PYlXLOxN3OTNquRTPg/edit?usp=sharing)** for team assignments.
 
