@@ -17,12 +17,10 @@ public class Scraper {
         docu = Jsoup.connect(url).get();
     }
     public Scraper() throws IOException{
-        File input = new File("Customer reviews for Basic Artificial Christmas Wreath, 20 in, by Holiday Time _ Walmart.com.html");
+        File input = new File("localreviews.html");
         docu = Jsoup.parse(input, "UTF-8", "");
     }
-    // private Document getDoc(String url) throws IOException{
-    //     return Jsoup.connect(url).get();
-    // }
+
     public Elements getReviews(){
         // return docu.select("span.tl-m db-m");
         return docu.select("span");
