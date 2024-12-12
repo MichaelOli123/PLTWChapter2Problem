@@ -5,17 +5,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Scraper {
     private Document docu;
-    public static void main(String[] args) throws IOException{
-        Scraper scrape = new Scraper();
-        //System.out.println(scrape.getNameReviewList());
-        scrape.getAllReviews();
+    private String url;
+    // public static void main(String[] args) throws IOException{
+    //     Scraper scrape = new Scraper();
+    //     //System.out.println(scrape.getNameReviewList());
+    //     scrape.getAllReviews();
         
-    }
+    // }
     public Scraper(String url) throws IOException{
+        this.url = url;
         docu = Jsoup.connect(url).get();
     }
     public Scraper() throws IOException{
@@ -60,9 +61,8 @@ public class Scraper {
         int totalPages =  Integer.valueOf(getReviews().text().split(" reviews 5 stars")[0].substring(getReviews().text().split(" reviews 5 stars")[0].length()-3));
         FileWriter writer = new FileWriter("socialMediaPosts.txt");
         for (int i=1;i<((totalPages/10)+2);i++){
-        // for (int i=1; i<3; i++){
             System.out.println(i);
-            docu = Jsoup.connect("https://www.walmart.com/reviews/product/5316226524?page=" + i).get(); // warning this will make 31 requests to the website in quick succession
+            docu = Jsoup.connect(url + i).get();
             ArrayList<String> toWrite = getNameReviewList();
             for (String tw: toWrite){
                 String[] temp = tw.split("}");
