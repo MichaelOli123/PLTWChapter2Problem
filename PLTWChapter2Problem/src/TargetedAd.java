@@ -33,8 +33,29 @@ public class TargetedAd {
   
   
       /* your code here */
-      
+      DataCollector dc = new DataCollector();
+      dc.setData("socialMediaPosts.txt","targetWords.txt");
+      String names = "";
+
+      while (true){
+        String post = dc.getNextPost();
+        if (!post.equals("NONE")){
+          String name = post.split(" ")[0];
+          while (true){
+            String tw = dc.getNextTargetWord();
+            if (tw.equals("NONE")){
+              break;
+            }
+            if (post.indexOf(tw) != -1){
+              names = names +  name +" ";
+            }
+          }
+        } else {
+          break;
+        }
+      }
        
+      dc.prepareAdvertisement("advertisement.txt", names, "Placeholder");
     }
   
   }
