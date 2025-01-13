@@ -38,24 +38,25 @@ public class TargetedAd {
       String names = "";
 
       while (true){
-        String post = dc.getNextPost();
-        if (!post.equals("NONE")){
+        String post = dc.getNextPost().toLowerCase();
+        if (!post.equals("none")){
           String name = post.split(" ")[0];
           while (true){
-            String tw = dc.getNextTargetWord();
-            if (tw.equals("NONE")){
+            String tw = dc.getNextTargetWord().toLowerCase();
+            if (tw.equals("none")){
               break;
             }
             if (post.indexOf(tw) != -1){
               names = names +  name +" ";
+              break;
             }
           }
         } else {
           break;
         }
       }
-       
-      dc.prepareAdvertisement("advertisement.txt", names, "Placeholder");
+      String adText = "Hello, are you interested in buying Christmas ornaments? It's the most wonderful time of the year, after all.";
+      dc.prepareAdvertisement("advertisement.txt", names, adText);
     }
   
   }
