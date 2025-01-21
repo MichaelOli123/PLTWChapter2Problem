@@ -1,9 +1,14 @@
 /*
  * Problem 2 Sell My Pet Food
  */
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class TargetedAd {
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
       /*  
        * TODO:
@@ -34,7 +39,14 @@ public class TargetedAd {
   
       /* your code here */
       DataCollector dc = new DataCollector();
-      dc.setData("socialMediaPosts.txt","targetWords.txt");
+      String names = getNames("socialMediaPosts.txt","targetWords.txt");
+      String ad1 = new String(Files.readAllBytes(Paths.get("adText.txt")));
+      dc.prepareAdvertisement("advertisement.txt", names, ad1);
+    }
+
+    public static String getNames(String posts, String targets){
+      DataCollector dc = new DataCollector();
+      dc.setData(posts, targets);
       String names = "";
 
       while (true){
@@ -55,8 +67,7 @@ public class TargetedAd {
           break;
         }
       }
-      String adText = "Hello, are you interested in buying Christmas ornaments? It's the most wonderful time of the year, after all.";
-      dc.prepareAdvertisement("advertisement.txt", names, adText);
+      return names;
     }
   
   }

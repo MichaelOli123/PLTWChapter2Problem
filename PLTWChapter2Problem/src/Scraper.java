@@ -9,12 +9,11 @@ import java.util.ArrayList;
 public class Scraper {
     private Document docu;
     private String url;
-    // public static void main(String[] args) throws IOException{
-    //     Scraper scrape = new Scraper();
-    //     //System.out.println(scrape.getNameReviewList());
-    //     scrape.getAllReviews();
+    public static void main(String[] args) throws IOException{
+        Scraper scrape = new Scraper("https://www.walmart.com/reviews/product/5316226524?page=");
+        scrape.writeSocialMediaPosts();
         
-    // }
+    }
     public Scraper(String url) throws IOException{
         this.url = url;
         docu = Jsoup.connect(url).get();
@@ -57,20 +56,45 @@ public class Scraper {
         return returnList;
     }
 
-    public void getAllReviews() throws IOException{
-        int totalPages =  Integer.valueOf(getReviews().text().split(" reviews 5 stars")[0].substring(getReviews().text().split(" reviews 5 stars")[0].length()-3));
+
+    public void writeSocialMediaPosts() throws IOException{
         FileWriter writer = new FileWriter("socialMediaPosts.txt");
-        for (int i=1;i<((totalPages/10)+2);i++){  // This will iterate through all of the pages(!) so be careful
-        // for (int i=1; i<3; i++){  // This one will only iterate through 2
+        int pageCount = 37;
+        for (int i=1;i<pageCount;i++){
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            docu = Jsoup.connect(url+i).get();
+            String[] names = docu.getElementsByClass("f7 b mv0").text().split(" ");
+            String[] reviews = docu.getElementsByClass("tl-m db-m").html().split("<b></b>");
+            // System.out.println(docu.html());
+            // System.out.println(Arrays.toString(names));
+            // System.out.println(Arrays.toString(reviews));
+            for (int j=0; j<10; j++){
+                writer.write(names[j] + " " + reviews[j]);
+            }
+        }
+        writer.close();
+    }
+
+    public void getAllReviews() throws IOException{
+        int totalReviewCount = 366;
+        FileWriter writer = new FileWriter("socialMediaPosts.txt");
+        for (int i=1;i<((totalReviewCount/10)+2);i++){  // This will iterate through all of the pages(!) so be careful
             System.out.println(i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             docu = Jsoup.connect(url + i).get();
             ArrayList<String> toWrite = getNameReviewList();
             for (String tw: toWrite){
                 String[] temp = tw.split("}");
                 writer.write(temp[0] + " "+temp[1]);
             }
-            // split the result of the function by whatever character it is, then write those to the text file
-            // with writer.write("text here")
         }
         writer.close();
 
